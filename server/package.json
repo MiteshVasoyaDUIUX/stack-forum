@@ -11,9 +11,12 @@
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "~4.16.1",
+    "joi": "^17.7.0",
+    "knex": "^2.4.2",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "pg": "^8.9.0"
   }
 }

@@ -20,7 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app).listen(port, () =>{
-  console.log(`Connected  to http://localhost:3000`)
+  console.log(`Connected  to http://localhost:3000 \n http://localhost:3000/auth/google`)
 });
 
 server.on('error', onError);
