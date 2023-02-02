@@ -19,7 +19,9 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app).listen(port);
+var server = http.createServer(app).listen(port, () =>{
+  console.log(`Connected  to http://localhost:3000`)
+});
 
 server.on('error', onError);
 server.on('listening', onListening);
