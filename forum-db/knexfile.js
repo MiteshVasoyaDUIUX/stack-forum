@@ -12,7 +12,7 @@ module.exports = {
       port: 5432,
       user: 'Riddhi',
       password: 'abcdef',
-      database: 'forum-data',
+      database: 'forum_data',
       charset: 'utf8'
  },
   },
