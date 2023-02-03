@@ -23,10 +23,10 @@ module.exports = {
         const result = schema.validate(user);
         console.log("Result ", result);
 
-        if (result.error === null) {
+        if (result.error === undefined) {
             return db('users').insert(user);
         } else {
-            console.log("In User ", user, "Result.error : ", result.error === null);
+            console.log("In User ", user, "Result.error : ", result.error);
             // return Promise.reject(result.error)
         }
     },

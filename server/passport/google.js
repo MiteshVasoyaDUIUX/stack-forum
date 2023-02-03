@@ -1,5 +1,4 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const e = require('express');
 const { use } = require('passport');
 const passport = require('passport');
 const users = require('../queries/users');
@@ -10,7 +9,7 @@ passport.serializeUser(function(user, done) {
   });
   
   passport.deserializeUser(function(id, done) {
-      return done(null, id);
+      done(null, id);
   });
 
 passport.use(new GoogleStrategy({
@@ -32,7 +31,7 @@ passport.use(new GoogleStrategy({
     
     let user = await users.findByEmail(email);
     console.log(user===null);
-    // console.log(googleUser);
+    console.log("User : ", user);
     
     if (user) {
         googleUser.role_id = user.role_id;
@@ -40,8 +39,6 @@ passport.use(new GoogleStrategy({
     } else {
         user = await users.insert(googleUser);
     }
-
-
 
     return cb(null, user);
 }
