@@ -31,8 +31,10 @@ module.exports = {
         }
     },
 
-    update(id, user) {
-        console.log("In Update Part...");
-        return db('users').where('id', id).update(user);
+    async update(id, user) {
+        // console.log("In Update Part...");
+        const returnedData = await db('users').where('id', id).update(user, '*');
+        // console.log("RETURNED DATA : ",  returnedData);
+        return returnedData;
     }
 }

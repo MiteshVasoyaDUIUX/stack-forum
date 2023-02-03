@@ -4,13 +4,13 @@ const passport = require('passport');
 const users = require('../queries/users');
 
 
-passport.serializeUser(function(user, done) {
-      done(null, user);
-  });
-  
-  passport.deserializeUser(function(id, done) {
-      done(null, id);
-  });
+// passport.serializeUser(function(user, done) {
+//       done(null, user);
+//   });
+
+//   passport.deserializeUser(function(id, done) {
+//       done(null, id);
+//   });
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -20,26 +20,37 @@ passport.use(new GoogleStrategy({
 
     const email = profile.emails[0].value;
     // console.log(email);
-    
+
     const googleUser = {
-        display_name : profile.displayName,
+        display_name: profile.displayName,
         email,
-        image_uri : profile.photos[0].value,
-        google_id : profile.id,
-        role_id : 1,
-    }
-    
-    let user = await users.findByEmail(email);
-    console.log(user===null);
-    console.log("User : ", user);
-    
-    if (user) {
-        googleUser.role_id = user.role_id;
-        user = users.update(user.id, googleUser);
-    } else {
-        user = await users.insert(googleUser);
+        image_uri: profile.photos[0].value,
+        google_id: profile.id,
+        role_id: 1,
     }
 
-    return cb(null, user);
+
+    try {
+        let user = await users.findByEmail(email);
+        // console.log(user===null);
+        // console.log("User : ", user);
+
+        if (user) {
+            googleUser.role_id = user.role_id;
+            user = await users.update(user.id, googleUser);
+        } else {
+            user = await users.insert(googleUser);
+        }
+
+        // console.log("USER in GOOGLE.JS", user);
+        // const returnedUser = JSON.stringify(user);
+        // console.log("USER in try in Google.js File : " + returnedUser);
+
+        return cb(null, user);
+    } catch (error) {
+        console.log("In Catch Block")
+        return cb(error);
+    }
+
 }
 ));
