@@ -10,15 +10,15 @@ const checkAuthHeader = async (req, res, next) => {
         try {
             const user = await verify(token);
             req.user = user;
+            console.log(req.user);
             next();
         } catch (error) {
             // res.status(401);
-            next(new Error('UnAuthorized...'));
+           console.log(error);
         }
-    } else {
-        res.status(401);
-        next(new Error('UnAuthorized...'));
-    }
+    } 
+
+    next();
 
 }
 

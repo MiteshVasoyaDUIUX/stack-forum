@@ -17,9 +17,10 @@ router.get('/google/callback', (req, res, next) => {
       
       const token = await create(user);
       // console.log(`User : `.bgCyan + user[0])
-      res.json(token);
+      res.redirect("http://localhost:8080/#/loggedin/token/"+token);
     } catch (error) {
-      next(error);
+      res.redirect("http://localhost:8080/#/loggedin/token/"+error.message);
+
     }
 
   })(req, res, next)
