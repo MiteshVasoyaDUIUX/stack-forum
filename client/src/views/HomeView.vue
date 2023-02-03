@@ -9,7 +9,7 @@
     </div>
     <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
     <div class="col-md-12 text-center">
-    <p role="button" class="btn btn-lg center ">Sign Up</p>
+    <a role="button" class="btn btn-lg center " :href= "getLoginURL" >Login With Google</a>
   </div>
   </div>
   </div>
@@ -19,6 +19,14 @@
 
 export default {
   name: 'HomeView',
-
+  computed: {
+    getLoginURL() {
+      if (window.location.hostname === 'localhost') {
+        return 'http://localhost:3000/auth/google';
+      }
+      //* URL to send Data...
+      return 'https://localhost:3000/auth/google';
+    },
+  },
 };
 </script>
