@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoggedIn from '../views/LoggedIn.vue';
+import Admin from '../views/Admin.vue';
+import store from '../store/index';
 
 const routes = [
   {
@@ -13,11 +15,19 @@ const routes = [
     name: 'loggedin',
     component: LoggedIn,
   },
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView,
-  // },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin,
+    beforeEnter(to, from, next){
+      if(store.getters.isLoggedIn){
+        next();
+      } else{
+        console.log(store.getters.isLoggedIn);
+        next('/');
+      }
+    }
+  },
 
 ];
 
