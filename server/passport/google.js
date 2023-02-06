@@ -2,7 +2,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { use } = require('passport');
 const passport = require('passport');
 const users = require('../queries/users');
-
+const {setAdmin} = require('../auth/utils');
 
 // passport.serializeUser(function(user, done) {
 //       done(null, user);
@@ -39,6 +39,10 @@ passport.use(new GoogleStrategy({
             googleUser.role_id = user.role_id;
             user = await users.update(user.id, googleUser);
         } else {
+            const admins = await users.findAdmins();
+            if(admins.length === 0){
+                googleUser.role_id = 3;
+            }
             user = await users.insert(googleUser);
         }
 

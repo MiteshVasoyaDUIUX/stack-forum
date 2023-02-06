@@ -9,7 +9,7 @@ const passports = require('./passport/google');
 const passport  = require('passport');
 var app = express();
 
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

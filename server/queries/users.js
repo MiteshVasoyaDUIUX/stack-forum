@@ -15,16 +15,21 @@ const schema = Joi.object({
 });
 
 module.exports = {
+    findAdmins(){
+        return db('users').where('role_id', 3);
+    },
+
     findByEmail(email) {
         return db('users').where('email', email).first();
     },
 
-    insert(user) {
+    async insert(user) {
         const result = schema.validate(user);
         console.log("Result ", result);
 
         if (result.error === undefined) {
-            return db('users').insert(user);
+            const result = await db('users').insert(user, '*');
+            return result;
         } else {
             console.log("In User ", user, "Result.error : ", result.error);
             // return Promise.reject(result.error)

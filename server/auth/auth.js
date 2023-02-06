@@ -4,8 +4,19 @@ const router = express.Router();
 const { create } = require('./utils');
 const colors = require('colors');
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }), () => {
+router.get('/isAdmin', async  (req, res) =>{
+  if(req.user) {
+    if(req.user.role_id === 3){
+      return res.json({
+        isAdmin : true,
+      });
+    }
+  }
+  res.json({isAdmin : false});
 
+})
+
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }), () => {
 });
 
 router.get('/google/callback', (req, res, next) => {
